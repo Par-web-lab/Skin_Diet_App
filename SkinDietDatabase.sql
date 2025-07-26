@@ -511,3 +511,11 @@ select * from diet_items;
  
 Delete from problem_diet_map where diet_item_id in (2,5);
 
+SELECT user, host, authentication_string, plugin FROM mysql.user WHERE user = 'root';
+
+CREATE USER 'root'@'localhost' IDENTIFIED BY 'Parneet202406@';
+GRANT ALL PRIVILEGES ON Skin_Diet_Plan.* TO 'root'@'localhost';
+FLUSH PRIVILEGES;
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'Parneet202406@';
+FLUSH PRIVILEGES;
