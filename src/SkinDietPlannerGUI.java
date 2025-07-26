@@ -20,7 +20,7 @@ public class SkinDietPlannerGUI extends JFrame {
 
     public SkinDietPlannerGUI() {
         setTitle("🌿 Skin Diet Plan Generator");
-        setSize(1000, 700); // Increased window size
+        setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -90,7 +90,7 @@ public class SkinDietPlannerGUI extends JFrame {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         bannerPanel.add(titleLabel, BorderLayout.CENTER);
 
-        // Selection + Button
+        // Selection + Button panel
         JPanel topPanel = new JPanel(new BorderLayout(10, 10));
         topPanel.setOpaque(false);
 
@@ -152,7 +152,7 @@ public class SkinDietPlannerGUI extends JFrame {
 
         List<Integer> problemIds = new ArrayList<>();
         for (SkinProblem sp : selectedProblems) {
-            problemIds.add(sp.id);
+            problemIds.add(sp.getId());
         }
 
         List<DietItem> dietItems = dietItemDAO.getDietItemsForProblems(problemIds);
@@ -189,6 +189,7 @@ public class SkinDietPlannerGUI extends JFrame {
         itemArea.setFont(new Font("Consolas", Font.PLAIN, 13));
         itemArea.setBackground(Color.WHITE);
         itemArea.setForeground(Color.DARK_GRAY);
+
         StringBuilder sb = new StringBuilder();
         for (DietItem item : items) {
             sb.append("- ").append(item.getItemName()).append(" (").append(item.getType()).append(")\n");
@@ -207,7 +208,7 @@ public class SkinDietPlannerGUI extends JFrame {
         });
     }
 
-    // Gradient background
+    // Gradient background panel
     static class GradientPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {

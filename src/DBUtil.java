@@ -1,29 +1,19 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 public class DBUtil {
-    private static final String PROPERTIES_FILE = "db.properties";
-    private static String DB_URL;
-    private static String DB_USER;
-    private static String DB_PASSWORD;
+    // Use your actual DB credentials here
+
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/Skin_Diet_Plan";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "Parneet202406@";
 
     static {
-        try (FileInputStream fis = new FileInputStream(PROPERTIES_FILE)) {
-            // Load DB credentials from the properties file
-            Properties props = new Properties();
-            props.load(fis);
-
-            DB_URL = props.getProperty("db.url");
-            DB_USER = props.getProperty("db.user");
-            DB_PASSWORD = props.getProperty("db.password");
-
-            // Register MySQL JDBC driver
+        try {
+            // Register MySQL JDBC driver (optional in recent versions but safe to keep)
             Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

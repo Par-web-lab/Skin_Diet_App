@@ -1,25 +1,27 @@
 import java.sql.*;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class SkinProblemDAO {
-    public List<SkinProblem> getAllSkinProblems() {
-        List<SkinProblem> list = new ArrayList<>();
-        try (Connection conn = DBUtil.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM skin_problems")) {
 
+    public List<SkinProblem> getAllSkinProblems() {
+        List<SkinProblem> problems = new ArrayList<>();
+        String sql = "SELECT id, problem_name AS name FROM skin_problems";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                list.add(new SkinProblem(rs.getInt("id"), rs.getString("problem_name")));
-
-
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                problems.add(new SkinProblem(id, name));
             }
-
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list;
+
+        return problems;
     }
 }

@@ -5,22 +5,20 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Step 1: Show all skin problems
         SkinProblemDAO problemDAO = new SkinProblemDAO();
         List<SkinProblem> problems = problemDAO.getAllSkinProblems();
 
         System.out.println("=== Choose Skin Problem IDs (space separated) ===");
         for (SkinProblem p : problems) {
-            System.out.println(p); // e.g. 1: Acne
+            System.out.println(p); // toString() shows name
         }
 
         System.out.print("Enter problem IDs: ");
         String inputLine = sc.nextLine();
         List<Integer> selectedIds = Arrays.stream(inputLine.trim().split("\\s+"))
-                                          .map(Integer::parseInt)
-                                          .collect(Collectors.toList());
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
 
-        // Step 2: Fetch diet items for selected skin problems (many)
         DietItemDAO dietDAO = new DietItemDAO();
         List<DietItem> recommendedItems = dietDAO.getDietItemsForProblems(selectedIds);
 
@@ -29,7 +27,6 @@ public class Main {
             return;
         }
 
-        // Step 3: Generate and show 7-day plan with constraints
         DietPlanner planner = new DietPlanner();
         Map<String, List<DietItem>> plan = planner.generate7DayPlan(recommendedItems, 5, 1);
 
