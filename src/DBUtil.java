@@ -11,25 +11,22 @@ public class DBUtil {
     private static String DB_USER;
     private static String DB_PASSWORD;
 
-
     static {
-        try {
+        try (FileInputStream fis = new FileInputStream(PROPERTIES_FILE)) {
             // Load DB credentials from the properties file
             Properties props = new Properties();
-            FileInputStream fis = new FileInputStream(PROPERTIES_FILE);
             props.load(fis);
 
             DB_URL = props.getProperty("db.url");
             DB_USER = props.getProperty("db.user");
             DB_PASSWORD = props.getProperty("db.password");
 
-            // This ensures the MySQL JDBC driver is registered
+            // Register MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
